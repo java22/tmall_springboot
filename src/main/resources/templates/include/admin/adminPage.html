@@ -1,0 +1,30 @@
+<div class="pageDiv" th:fragment="html">
+	<nav>
+	  <ul class="pagination">
+		  <!--点击时,调用jump函数,先调用listCategory.html中的jump函数,
+		  然后间接调用adminHeader.html中的jump(page,vue)函数,
+		  这样就能从服务器获取对应页数据,vue.js会自动刷新table中的数据-->
+	    <li :class="{ disabled: pagination.first }">
+	      <a  href="#nowhere" @click="jump('first')">«</a>
+	    </li>
+	    <li :class="{ disabled: !pagination.hasPrevious }">
+	      <a  href="#nowhere" @click="jump('pre')">‹</a>
+	    </li>		    
+
+		  <!--中间这个遍历,就是遍历Page4Navigator中新增加的navigatepageNums数组,
+		  然后调用jumpByNumber函数,根据新的start获取数据,并自动刷新-->
+		<li  v-for="i in pagination.navigatepageNums">
+			<a href="#nowhere" @click="jumpByNumber(i-1)" >
+				{{i}}
+			</a>
+		</li>
+
+	    <li :class="{ disabled: !pagination.hasNext }">
+	      <a  href="#nowhere" @click="jump('next')">›</a>
+	    </li>
+	    <li :class="{ disabled: pagination.last }">
+	      <a  href="#nowhere" @click="jump('last')">»</a>
+	    </li>		    
+	  </ul>
+	</nav>    
+</div>
